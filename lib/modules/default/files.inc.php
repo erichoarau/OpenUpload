@@ -401,6 +401,10 @@ var $menu;
       app()->log('notice','serveFile','','ALLOW',$finfo[$num]['id']);
      /* disable and clean output buffer so it won't reach memory limit */
       ob_end_clean();
+          
+      /* need more clean for corrupted file download bug e.h */
+      while (ob_get_level()) { ob_end_clean(); }
+
       header('Content-Description: File Transfer');
       header('Content-Type: '.$finfo[$num]['mime']);
       header('Content-Length: '.$filesize);
